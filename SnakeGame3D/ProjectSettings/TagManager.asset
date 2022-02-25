@@ -8,6 +8,8 @@ TagManager:
   - Food
   - Tail
   - Wall
+  - Poison
+  - Velocity
   layers:
   - Default
   - TransparentFX
