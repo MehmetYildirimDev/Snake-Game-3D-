@@ -20,7 +20,10 @@ public class SnakeM : MonoBehaviour
     List<GameObject> TailParts = new List<GameObject>();
     List<Vector3> PositionHistory = new List<Vector3>();
 
-    [SerializeField] private UnityEngine.UI.Text ScoreText, HealtText;
+    [SerializeField] private Text ScoreText;
+   // [SerializeField] private Text GOScoreText;
+    [SerializeField] private Text HealtText;
+    [SerializeField] private Image Background;
     private int score;
     public int Score
     {
@@ -47,6 +50,9 @@ public class SnakeM : MonoBehaviour
     {
         Debug.Log(" " + PlayerPrefs.GetInt("SnakeSelected").ToString());
 
+        ScoreText.gameObject.SetActive(true);
+        HealtText.gameObject.SetActive(true);
+        Background.gameObject.SetActive(false);
 
         Score = 0;
         Healt = 3;
@@ -136,12 +142,14 @@ public class SnakeM : MonoBehaviour
     {
         if (other.CompareTag("Food"))
         {
+            //Todo : colllider carpýsýypr yýlan direk oluyor
             Score++;
             GrowSnake();
             ChangePosition();
         }
         if (other.CompareTag("Wall") || other.CompareTag("Tail"))
         {
+            Debug.Log("Food icinde");
             Dead();
         }
         if (other.CompareTag("Poison"))
@@ -156,10 +164,7 @@ public class SnakeM : MonoBehaviour
         }
 
     }
-    private void Dead()
-    {
-        //todo
-    }
+
     private void PoisonF()
     {
         Healt--;
@@ -187,5 +192,13 @@ public class SnakeM : MonoBehaviour
         moveSpeed *= 1.1f;
     }
 
+    private void Dead()
+    {
+        Background.gameObject.SetActive(true);
+        ScoreText.gameObject.SetActive(false);
+        HealtText.gameObject.SetActive(false);
+        //GOScoreText.text = "Score: " + Score;
+
+    }
 
 }
