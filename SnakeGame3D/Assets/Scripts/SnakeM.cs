@@ -45,6 +45,9 @@ public class SnakeM : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(" " + PlayerPrefs.GetInt("SnakeSelected").ToString());
+
+
         Score = 0;
         Healt = 3;
         ChangePosition();

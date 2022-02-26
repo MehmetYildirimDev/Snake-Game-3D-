@@ -12,7 +12,7 @@ public class MenuController : MonoBehaviour
     }
     public void SnakesButton()
     {
-
+        SceneManager.LoadScene(2);
     }
     public void QuitButton()
     {

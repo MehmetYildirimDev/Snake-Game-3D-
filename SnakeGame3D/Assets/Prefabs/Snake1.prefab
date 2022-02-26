@@ -115,6 +115,11 @@ MonoBehaviour:
   steerSpeed: 180
   Gap: 40
   TailPrefab: {fileID: 9046207943775551126, guid: e4266c1f2ded590458e9d1ff090049ab, type: 3}
+  Food: {fileID: 0}
+  Poison: {fileID: 0}
+  Velocity: {fileID: 0}
+  ScoreText: {fileID: 0}
+  HealtText: {fileID: 0}
 --- !u!54 &4602464921207095961
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SnakeNew.unity
     guid: bac1b6bd7c5fd044c9171a7ec8d665f0
+  - enabled: 1
+    path: Assets/Scenes/SnakeSelection.unity
+    guid: fd7cd6016ed2ad041b56e46ae8e7bf4a
   m_configObjects: {}
