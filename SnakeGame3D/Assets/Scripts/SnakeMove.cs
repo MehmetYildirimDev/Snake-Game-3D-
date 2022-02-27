@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class SnakeM : MonoBehaviour
+public class SnakeMove : MonoBehaviour
 {
     private Vector3 AreaLimit = new Vector3(-9, 0.25f, 9);//yemler için .25f
 
@@ -97,7 +97,6 @@ public class SnakeM : MonoBehaviour
         Vector3 newPoisonPosition;
         do
         {
-            Debug.Log("ChangePositionCikis");
             var x = (int)Random.Range(1, AreaLimit.x);
             var z = (int)Random.Range(1, AreaLimit.z);
             newFoodPosition = new Vector3(x, 0.25f, z);
@@ -115,7 +114,6 @@ public class SnakeM : MonoBehaviour
         Food.transform.position = newFoodPosition;
         Velocity.transform.position = newVeloPosition;
         Poison.transform.position = newPoisonPosition;
-        Debug.Log("ChangePositionCikis");
     }
 
     public bool CanSpawn(Vector3 newposition)
@@ -136,7 +134,7 @@ public class SnakeM : MonoBehaviour
 
     public void GrowSnake()
     {
-        GameObject tail = Instantiate(TailPrefab);
+        GameObject tail = Instantiate(TailPrefab,this.transform.position,Quaternion.identity);
         TailParts.Add(tail);
 
     }

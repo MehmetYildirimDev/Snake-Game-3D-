@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
 
-    public SnakeM SnakeMScript;
+    public SnakeMove SnakeMScript;
 
     private void OnTriggerEnter(Collider other)
     {
