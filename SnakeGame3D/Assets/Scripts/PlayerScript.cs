@@ -13,10 +13,8 @@ public class PlayerScript : MonoBehaviour
 
         if (other.CompareTag("Food"))
         {
-            //Todo : colllider carpýsýypr yýlan direk oluyor
             SnakeMScript.Score++;
-           SnakeMScript.GrowSnake();
-            Debug.Log("player");
+            SnakeMScript.GrowSnake();
             SnakeMScript.ChangePosition();
         }
 
@@ -34,7 +32,6 @@ public class PlayerScript : MonoBehaviour
 
         if (other.CompareTag("Wall") || other.CompareTag("Tail"))
         {
-            Debug.Log("Food icinde");
             SnakeMScript.Dead();
         }
     }

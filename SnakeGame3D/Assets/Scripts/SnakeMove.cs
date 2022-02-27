@@ -10,7 +10,7 @@ public class SnakeMove : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float steerSpeed = 180f;
-    [SerializeField] private int Gap = 40;
+    [SerializeField] private float Gap = 40;
 
     public GameObject TailPrefab;
     public GameObject Food;
@@ -49,7 +49,6 @@ public class SnakeMove : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
-        Debug.Log(" " + PlayerPrefs.GetInt("SnakeSelected").ToString());
 
         ScoreText.gameObject.SetActive(true);
         HealtText.gameObject.SetActive(true);
@@ -78,7 +77,7 @@ public class SnakeMove : MonoBehaviour
         int index = 0;
         foreach (var tail in TailParts)
         {
-            Vector3 point = PositionHistory[Mathf.Clamp(index * Gap, 0, PositionHistory.Count - 1)];
+            Vector3 point = PositionHistory[Mathf.Clamp(index * (int)Gap, 0, PositionHistory.Count - 1)];
 
             Vector3 moveDirection = point - tail.transform.position;
             tail.transform.position += moveDirection * moveSpeed * Time.deltaTime;
@@ -107,7 +106,7 @@ public class SnakeMove : MonoBehaviour
 
             var x2 = (int)Random.Range(1, AreaLimit.x);
             var z2 = (int)Random.Range(1, AreaLimit.z);
-            newPoisonPosition = new Vector3(x2, 0.25f, z2);
+            newPoisonPosition = new Vector3(x2, 0.4f, z2);
 
         } while (!CanSpawn(newFoodPosition) && !CanSpawn(newVeloPosition) && !CanSpawn(newPoisonPosition));
 
@@ -152,6 +151,7 @@ public class SnakeMove : MonoBehaviour
         if (rand == 1)
         {
             moveSpeed *= 0.9f;
+            Gap *= 0.9f;
         }
         if (rand == 2 && TailParts.Count > 1)
         {
@@ -164,6 +164,7 @@ public class SnakeMove : MonoBehaviour
     public void VelocityF()
     {
         moveSpeed *= 1.1f;
+        Gap *= 1.1f;
     }
 
     public void Dead()
@@ -173,7 +174,6 @@ public class SnakeMove : MonoBehaviour
         ScoreText.gameObject.SetActive(false);
         HealtText.gameObject.SetActive(false);
         GOScoreText.text = "Score: " + Score;
-
     }
 
 }
