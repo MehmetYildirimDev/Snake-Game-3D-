@@ -21,7 +21,7 @@ public class SnakeM : MonoBehaviour
     List<Vector3> PositionHistory = new List<Vector3>();
 
     [SerializeField] private Text ScoreText;
-   // [SerializeField] private Text GOScoreText;
+    [SerializeField] private Text GOScoreText;
     [SerializeField] private Text HealtText;
     [SerializeField] private Image Background;
     private int score;
@@ -48,6 +48,7 @@ public class SnakeM : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         Debug.Log(" " + PlayerPrefs.GetInt("SnakeSelected").ToString());
 
         ScoreText.gameObject.SetActive(true);
@@ -89,13 +90,14 @@ public class SnakeM : MonoBehaviour
     }
 
 
-    private void ChangePosition()
+    public void ChangePosition()
     {
         Vector3 newFoodPosition;
         Vector3 newVeloPosition;
         Vector3 newPoisonPosition;
         do
         {
+            Debug.Log("ChangePositionCikis");
             var x = (int)Random.Range(1, AreaLimit.x);
             var z = (int)Random.Range(1, AreaLimit.z);
             newFoodPosition = new Vector3(x, 0.25f, z);
@@ -110,12 +112,13 @@ public class SnakeM : MonoBehaviour
 
         } while (!CanSpawn(newFoodPosition) && !CanSpawn(newVeloPosition) && !CanSpawn(newPoisonPosition));
 
-        Food.transform.position =newFoodPosition;
-        Velocity.transform.position =newVeloPosition;
-        Poison.transform.position =newPoisonPosition;
+        Food.transform.position = newFoodPosition;
+        Velocity.transform.position = newVeloPosition;
+        Poison.transform.position = newPoisonPosition;
+        Debug.Log("ChangePositionCikis");
     }
 
-    private bool CanSpawn(Vector3 newposition)
+    public bool CanSpawn(Vector3 newposition)
     {
         foreach (var item in TailParts)
         {
@@ -131,41 +134,14 @@ public class SnakeM : MonoBehaviour
     }
 
 
-    private void GrowSnake()
+    public void GrowSnake()
     {
         GameObject tail = Instantiate(TailPrefab);
         TailParts.Add(tail);
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Food"))
-        {
-            //Todo : colllider carpýsýypr yýlan direk oluyor
-            Score++;
-            GrowSnake();
-            ChangePosition();
-        }
-        if (other.CompareTag("Wall") || other.CompareTag("Tail"))
-        {
-            Debug.Log("Food icinde");
-            Dead();
-        }
-        if (other.CompareTag("Poison"))
-        {
-            PoisonF();
-            ChangePosition();
-        }
-        if (other.CompareTag("Velocity"))
-        {
-            VelocityF();
-            ChangePosition();
-        }
-
-    }
-
-    private void PoisonF()
+    public void PoisonF()
     {
         Healt--;
         if (Healt <= 0)
@@ -179,7 +155,7 @@ public class SnakeM : MonoBehaviour
         {
             moveSpeed *= 0.9f;
         }
-        if (rand==2 &&TailParts.Count>1)
+        if (rand == 2 && TailParts.Count > 1)
         {
             Destroy(TailParts[TailParts.Count - 1]);
             TailParts.RemoveAt(TailParts.Count - 1);
@@ -187,17 +163,18 @@ public class SnakeM : MonoBehaviour
         }
 
     }
-    private void VelocityF()
+    public void VelocityF()
     {
         moveSpeed *= 1.1f;
     }
 
-    private void Dead()
+    public void Dead()
     {
+        Time.timeScale = 0;
         Background.gameObject.SetActive(true);
         ScoreText.gameObject.SetActive(false);
         HealtText.gameObject.SetActive(false);
-        //GOScoreText.text = "Score: " + Score;
+        GOScoreText.text = "Score: " + Score;
 
     }
 
