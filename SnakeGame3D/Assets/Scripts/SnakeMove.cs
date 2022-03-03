@@ -51,6 +51,7 @@ public class SnakeMove : MonoBehaviour
     {
         Time.timeScale = 1;
 
+
         ScoreText.gameObject.SetActive(true);
         HealtText.gameObject.SetActive(true);
         Background.gameObject.SetActive(false);
@@ -69,11 +70,7 @@ public class SnakeMove : MonoBehaviour
 
         transform.Rotate(Vector3.up * steerDirection * steerSpeed * Time.deltaTime);
 
-
         PositionHistory.Insert(0, transform.position);
-
-
-
 
         int index = 0;
         foreach (var tail in TailParts)
@@ -85,9 +82,6 @@ public class SnakeMove : MonoBehaviour
             tail.transform.LookAt(point);
             index++;
         }
-
-
-
     }
 
 
@@ -135,9 +129,18 @@ public class SnakeMove : MonoBehaviour
 
     public void GrowSnake()
     {
-        GameObject tail = Instantiate(TailPrefab, PositionHistory[PositionHistory.Count-1],Quaternion.identity);
-        TailParts.Add(tail);
+        if (TailParts.Count > 0)
+        {
+        GameObject tail = Instantiate(TailPrefab,TailParts[TailParts.Count-1].transform.position,Quaternion.identity);
+            TailParts.Add(tail);
+        }
+        else
+        {
+            GameObject tail = Instantiate(TailPrefab,transform.position, Quaternion.identity);
+            TailParts.Add(tail);
+        }
 
+            
     }
 
     public void PoisonF()

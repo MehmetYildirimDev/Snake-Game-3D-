@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8de0d4548879544f9539514335b8a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraPosition: {fileID: 0}
   moveSpeed: 5
   steerSpeed: 270
   Gap: 40
