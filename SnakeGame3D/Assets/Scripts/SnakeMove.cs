@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SnakeMove : MonoBehaviour
 {
+    [SerializeField] private Transform CameraPosition;
     private Vector3 AreaLimit = new Vector3(-9, 0.25f, 9);//yemler için .25f
 
     [SerializeField] private float moveSpeed = 5f;
@@ -86,6 +87,7 @@ public class SnakeMove : MonoBehaviour
         }
 
 
+
     }
 
 
@@ -96,16 +98,16 @@ public class SnakeMove : MonoBehaviour
         Vector3 newPoisonPosition;
         do
         {
-            var x = (int)Random.Range(1, AreaLimit.x);
-            var z = (int)Random.Range(1, AreaLimit.z);
+            var x = (int)Random.Range(-8, 8);
+            var z = (int)Random.Range(-8, 8);
             newFoodPosition = new Vector3(x, 0.25f, z);
 
-            var x1 = (int)Random.Range(1, AreaLimit.x);
-            var z1 = (int)Random.Range(1, AreaLimit.z);
+            var x1 = (int)Random.Range(-8, 8);
+            var z1 = (int)Random.Range(-8, 8);
             newVeloPosition = new Vector3(x1, 0.25f, z1);
 
-            var x2 = (int)Random.Range(1, AreaLimit.x);
-            var z2 = (int)Random.Range(1, AreaLimit.z);
+            var x2 = (int)Random.Range(-8, 8);
+            var z2 = (int)Random.Range(-8, 8);
             newPoisonPosition = new Vector3(x2, 0.4f, z2);
 
         } while (!CanSpawn(newFoodPosition) && !CanSpawn(newVeloPosition) && !CanSpawn(newPoisonPosition));
@@ -133,7 +135,7 @@ public class SnakeMove : MonoBehaviour
 
     public void GrowSnake()
     {
-        GameObject tail = Instantiate(TailPrefab,this.transform.position,Quaternion.identity);
+        GameObject tail = Instantiate(TailPrefab, PositionHistory[PositionHistory.Count-1],Quaternion.identity);
         TailParts.Add(tail);
 
     }
@@ -151,7 +153,7 @@ public class SnakeMove : MonoBehaviour
         if (rand == 1)
         {
             moveSpeed *= 0.9f;
-            Gap *= 0.9f;
+            //Gap *= 0.9f;
         }
         if (rand == 2 && TailParts.Count > 1)
         {
@@ -164,7 +166,7 @@ public class SnakeMove : MonoBehaviour
     public void VelocityF()
     {
         moveSpeed *= 1.1f;
-        Gap *= 1.1f;
+        //Gap *= 1.1f;
     }
 
     public void Dead()
